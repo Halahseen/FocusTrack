@@ -10,6 +10,21 @@
 > The original repository has no license file; the code is shared here for study purposes only.
 > The original README is kept as [`README_original.md`](README_original.md).
 
+## Full Anti-UAV410 test set: reproduction / שחזור על כל סט ה-test
+
+All 120 test sequences (129,691 frames), `focustrack_single` with the official weights, evaluated with the
+**official** Anti-UAV410 toolkit (unmodified). / כל 120 רצפי ה-test, הערכה עם קוד ההערכה הרשמי.
+
+| | AUC | P | SA |
+|---|---|---|---|
+| Paper | 62.8 | 86.2 | 63.9 |
+| Authors' published raw results, official eval | 62.64 | 86.37 | 63.89 |
+| **This run (Windows, RTX A4000)** | **61.98** | **86.13** | **63.17** |
+
+The gap of under 1 point comes from floating-point differences between GPUs and library versions. These differences appear from frame 2
+and grow over time, and they help as often as they hurt: we are better on 38 sequences and worse on 55. Details, raw results and scripts are in
+[`reproduction/`](reproduction/README.md).
+
 ---
 
 <div dir="rtl">
