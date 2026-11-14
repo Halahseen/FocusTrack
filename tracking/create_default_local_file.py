@@ -16,8 +16,10 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    workspace_dir = os.path.realpath(args.workspace_dir)
-    data_dir = os.path.realpath(args.data_dir)
-    save_dir = os.path.realpath(args.save_dir)
+    # Windows fix: realpath() turns a mapped network drive (e.g. F:) into a \\server\share UNC path;
+    # abspath() keeps the drive letter.
+    workspace_dir = os.path.abspath(args.workspace_dir)
+    data_dir = os.path.abspath(args.data_dir)
+    save_dir = os.path.abspath(args.save_dir)
     create_default_local_file_ITP_train(workspace_dir, data_dir)
     create_default_local_file_ITP_test(workspace_dir, data_dir, save_dir)

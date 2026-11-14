@@ -12,7 +12,21 @@ from typing import Optional
 import math
 from functools import partial
 import matplotlib.pyplot as plt
-from mmseg.models.decode_heads.decode_head import BaseDecodeHead
+try:
+    from mmseg.models.decode_heads.decode_head import BaseDecodeHead
+except ImportError:
+    # mmseg (and its compiled dependency mmcv) is hard to install on Windows and is not in the README.
+    # ATMHead only uses BaseDecodeHead to store a few attributes, and it deletes conv_seg / loss_decode
+    # right away, so this minimal stand-in builds exactly the same set of weights.
+    # (The tracker loads the checkpoint with strict=True, so any mismatch would raise an error.)
+    class BaseDecodeHead(nn.Module):
+        def __init__(self, in_channels, channels, num_classes, **kwargs):
+            super().__init__()
+            self.in_channels = in_channels
+            self.channels = channels
+            self.num_classes = num_classes
+            self.conv_seg = nn.Identity()
+            self.loss_decode = nn.Identity()
 from timm.models.layers import trunc_normal_
 import matplotlib.pyplot as plt
 

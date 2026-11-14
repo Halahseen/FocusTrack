@@ -88,6 +88,8 @@ def create_default_local_file_ITP_train(workspace_dir, data_dir):
             comment_str = None
             if attr in comment:
                 comment_str = comment[attr]
+            # Windows fix: '\a', '\t', '\n' inside a written path would become control characters
+            attr_val = attr_val.replace('\\', '/')
             if comment_str is None:
                 if attr_val == empty_str:
                     f.write('        self.{} = {}\n'.format(attr, attr_val))

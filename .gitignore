@@ -177,3 +177,11 @@ lib/train/admin/local.py
 
 *.mp4
 /anno/*
+
+# result videos of this Windows run (small enough for GitHub)
+!results/videos/*.mp4
+!results/hook/*.mp4
+# never upload weights / environments
+*.pth
+*.pth.tar
+/envs
